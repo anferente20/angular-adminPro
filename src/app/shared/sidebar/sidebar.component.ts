@@ -1,3 +1,4 @@
+import { SidebarService } from './../../services/sidebar.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  public menuItems: any[] = []
 
-  ngOnInit(): void {
+  constructor(private sideBarService: SidebarService) { 
+    this.menuItems = this.sideBarService.menu;
   }
+
+  ngOnInit(): void { }
 
 }
