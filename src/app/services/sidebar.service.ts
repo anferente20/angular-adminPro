@@ -12,6 +12,8 @@ export class SidebarService {
         { title: 'Main', path:'/' },
         { title: 'Progress Bar', path: 'progress'},
         { title: 'Graphs', path: 'graph'},
+        { title: 'Promises', path: 'promises'},
+        { title: 'Rxjs', path: 'rxjs'},
       ]
     }
   ]

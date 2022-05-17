@@ -19,7 +19,7 @@ export class SettigsService {
 
   public changeTheme(theme: string) {
     const url = `./assets/css/colors/${theme}.css`
-    this.linkTheme?.setAttribute('href',url);
+    this.linkTheme!.setAttribute('href',url);
     localStorage.setItem('theme', url);
     this.setCurrentTheme();
   }
