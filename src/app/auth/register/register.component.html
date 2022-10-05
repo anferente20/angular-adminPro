@@ -11,7 +11,9 @@
       <form
         class="form-horizontal form-material"
         id="loginform"
-        action="index.html"
+        (ngSubmit)="createUser()"
+        autocomplete="off"
+        [formGroup]="registerForm"
       >
         <a href="javascript:void(0)" class="text-center db"
           ><img src="../assets/images/logo-icon.png" alt="Home" /><br /><img
@@ -26,7 +28,8 @@
               class="form-control"
               type="text"
               required=""
-              placeholder="Name"
+              placeholder="Nombre"
+              formControlName="name"
             />
           </div>
         </div>
@@ -36,7 +39,8 @@
               class="form-control"
               type="text"
               required=""
-              placeholder="Email"
+              placeholder="Correo"
+              formControlName="email"
             />
           </div>
         </div>
@@ -46,7 +50,8 @@
               class="form-control"
               type="password"
               required=""
-              placeholder="Password"
+              placeholder="Contraseña"
+              formControlName="pass"
             />
           </div>
         </div>
@@ -56,14 +61,19 @@
               class="form-control"
               type="password"
               required=""
-              placeholder="Confirm Password"
+              placeholder="Confirmar Contraseña"
+              formControlName="passConfirmation"
             />
           </div>
         </div>
         <div class="form-group row">
           <div class="col-md-12">
             <div class="checkbox checkbox-primary p-t-0">
-              <input id="checkbox-signup" type="checkbox" />
+              <input
+                id="checkbox-signup"
+                type="checkbox"
+                formControlName="terms"
+              />
               <label for="checkbox-signup">
                 I agree to all <a href="#">Terms</a></label
               >
@@ -84,9 +94,7 @@
           <div class="col-sm-12 text-center">
             <p>
               Already have an account?
-              <a href="pages-login-2.html" class="text-info m-l-5"
-                ><b>Sign In</b></a
-              >
+              <a routerLink="/login" class="text-info m-l-5"><b>Sign In</b></a>
             </p>
           </div>
         </div>
