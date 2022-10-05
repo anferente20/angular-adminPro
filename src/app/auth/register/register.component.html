@@ -80,6 +80,17 @@
             </div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col text-danger">
+            <p *ngIf="validateField('name')">El nombre es obligatorio.</p>
+            <p *ngIf="validateField('email')">El correo es obligatorio.</p>
+            <p *ngIf="validateField('pass')">La Contraseña es obligatoria.</p>
+            <p *ngIf="!registerForm.get('terms')?.value && formSubmitted">
+              La aceptación de términos es obligatoria.
+            </p>
+          </div>
+        </div>
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
             <button
