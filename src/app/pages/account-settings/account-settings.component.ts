@@ -4,12 +4,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-account-settings',
   templateUrl: './account-settings.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class AccountSettingsComponent implements OnInit {
-
-  constructor(private settingsService: SettigsService) { }
+  constructor(private settingsService: SettigsService) {}
 
   ngOnInit(): void {
     this.settingsService.setCurrentTheme();

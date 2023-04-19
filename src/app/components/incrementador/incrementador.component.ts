@@ -3,11 +3,9 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 @Component({
   selector: 'app-incrementador',
   templateUrl: './incrementador.component.html',
-  styles: [
-  ]
+  styles: [],
 })
-export class IncrementadorComponent  implements OnInit{
-
+export class IncrementadorComponent implements OnInit {
   ngOnInit(): void {
     this.btnClass = `btn btn-${this.btnClass}`;
   }
@@ -16,17 +14,14 @@ export class IncrementadorComponent  implements OnInit{
   @Input() btnClass: string = 'btn btn-inverse';
   @Output() progressValueOut: EventEmitter<number> = new EventEmitter();
 
-
-
-
   public getPercentage() {
-    return `${ this.progressValue }%` 
+    return `${this.progressValue}%`;
   }
 
   public changeValue(value: number) {
-    if ( this.progressValue + value > 100 ) {
+    if (this.progressValue + value > 100) {
       this.progressValue = 100;
-    } else if ( this.progressValue + value < 0 ) {
+    } else if (this.progressValue + value < 0) {
       this.progressValue = 0;
     } else {
       this.progressValue = this.progressValue + value;
@@ -34,14 +29,14 @@ export class IncrementadorComponent  implements OnInit{
     this.progressValueOut.emit(this.progressValue);
   }
 
-  public onChange(event: number){
-    if ( event >= 100 ) {
+  public onChange(event: number) {
+    if (event >= 100) {
       this.progressValue = 100;
     } else if (event <= 0) {
       this.progressValue = 0;
     } else {
       this.progressValue = event;
     }
-    this.progressValueOut.emit(this.progressValue)
+    this.progressValueOut.emit(this.progressValue);
   }
 }

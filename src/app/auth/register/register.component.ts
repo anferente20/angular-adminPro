@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 import { UserService } from 'src/app/services/user.service';
 import { AlertService } from 'src/app/services/alerts.service';
@@ -10,21 +10,26 @@ import { AlertService } from 'src/app/services/alerts.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-
-
-  public registerForm = this.fb.group({
-    name: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
-    passwordConfirmation: ['', [Validators.required]],
-    terms: [false, [Validators.required]],
-  }, {
-    validators: this.equalpasswordwords('password', 'passwordConfirmation') //validador de contraseñas
-  });
+  public registerForm = this.fb.group(
+    {
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      passwordConfirmation: ['', [Validators.required]],
+      terms: [false, [Validators.required]],
+    },
+    {
+      validators: this.equalpasswordwords('password', 'passwordConfirmation'), //validador de contraseñas
+    }
+  );
 
   public formSubmitted = false;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private alertService: AlertService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private alertService: AlertService
+  ) {}
 
   validateField(field: string): boolean {
     if (this.registerForm.get(field)?.invalid && this.formSubmitted) {
@@ -37,22 +42,23 @@ export class RegisterComponent {
     this.formSubmitted = true;
     console.log(this.registerForm.value);
     if (this.registerForm.invalid) {
-      console.log("Fallamos");
+      console.log('Fallamos');
       return;
     }
-     
+
     // If form is valid, register user
     this.userService.createUser(this.registerForm.value).subscribe(
-      resp => {
-        console.log("Usuario creado");
+      (resp) => {
+        console.log('Usuario creado');
         console.log(resp);
-      }, (err) => {
-        this.alertService.showAlert('Error', err.error.msg,  'error');
+      },
+      (err) => {
+        this.alertService.showAlert('Error', err.error.msg, 'error');
       }
     );
   }
-   
-  arePasswordsValid(){
+
+  arePasswordsValid() {
     const password1 = this.registerForm.get('password')?.value;
     const password2 = this.registerForm.get('passwordConfirmation')?.value;
 
@@ -64,16 +70,16 @@ export class RegisterComponent {
   }
 
   equalpasswordwords(password: string, passwordConfirmation: string) {
-    return (formGroup: FormGroup)  => {
+    return (formGroup: FormGroup) => {
       const password1 = formGroup.get(password);
       const password2 = formGroup.get(passwordConfirmation);
 
       if (password1?.value !== password2?.value) {
-        password2?.setErrors({ notEqual: true});
+        password2?.setErrors({ notEqual: true });
       } else {
         password2?.setErrors(null);
       }
-      return 
-    }
+      return;
+    };
   }
 }

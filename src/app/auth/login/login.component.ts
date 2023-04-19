@@ -6,31 +6,31 @@ import { AlertService } from 'src/app/services/alerts.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: [ './login.component.css' ]
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent  {
-
-
-
+export class LoginComponent {
   public loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
-    rememberMe: [false]
+    rememberMe: [false],
   });
 
-  constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private alertService: AlertService ) { }
-
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private userService: UserService,
+    private alertService: AlertService
+  ) {}
 
   public login() {
     this.userService.login(this.loginForm.value).subscribe(
-      resp => {
-        console.log("Usuario logueado");
+      (resp) => {
+        console.log('Usuario logueado');
         console.log(resp);
-      }, (err) => {
-        this.alertService.showAlert('Error', err.error.msg,  'error');
+      },
+      (err) => {
+        this.alertService.showAlert('Error', err.error.msg, 'error');
       }
     );
-    
   }
-
 }

@@ -85,7 +85,9 @@
           <div class="col text-danger">
             <p *ngIf="validateField('name')">* El nombre es obligatorio.</p>
             <p *ngIf="validateField('email')">* El correo es obligatorio.</p>
-            <p *ngIf="arePasswordsValid()">* Las Contraseñas deben ser iguales.</p>
+            <p *ngIf="arePasswordsValid()">
+              * Las Contraseñas deben ser iguales.
+            </p>
             <p *ngIf="!registerForm.get('terms')?.value && formSubmitted">
               * La aceptación de términos es obligatoria.
             </p>

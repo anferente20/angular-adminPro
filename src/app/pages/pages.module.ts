@@ -15,9 +15,6 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
-
-
-
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -26,7 +23,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     PagesComponent,
     AccountSettingsComponent,
     PromisesComponent,
-    RxjsComponent
+    RxjsComponent,
   ],
   imports: [
     CommonModule,
@@ -34,14 +31,14 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     SharedModule,
     FormsModule,
     ComponentsModule,
-    NgChartsModule
+    NgChartsModule,
   ],
   exports: [
     DashboardComponent,
     ProgressComponent,
     Graph1Component,
     PagesComponent,
-    AccountSettingsComponent
-  ]
+    AccountSettingsComponent,
+  ],
 })
-export class PagesModule { }
+export class PagesModule {}
