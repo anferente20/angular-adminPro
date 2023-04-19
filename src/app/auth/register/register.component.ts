@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Userservice } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -12,16 +13,16 @@ export class RegisterComponent {
   public registerForm = this.fb.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    pass: ['', [Validators.required]],
-    passConfirmation: ['', [Validators.required]],
+    password: ['', [Validators.required]],
+    passwordConfirmation: ['', [Validators.required]],
     terms: [false, [Validators.required]],
   }, {
-    validators: this.equalPasswords('pass', 'passConfirmation') //validador de contraseñas
+    validators: this.equalpasswordwords('password', 'passwordConfirmation') //validador de contraseñas
   });
 
   public formSubmitted = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private userService: Userservice) {}
 
   validateField(field: string): boolean {
     if (this.registerForm.get(field)?.invalid && this.formSubmitted) {
@@ -33,33 +34,40 @@ export class RegisterComponent {
   createUser(): void {
     this.formSubmitted = true;
     console.log(this.registerForm.value);
-    if (this.registerForm.valid) {
-      console.log("1");
-    } else {
-      console.log("2");
+    if (this.registerForm.invalid) {
+      console.log("Fallamos");
+      return;
     }
+     
+    // If form is valid, register user
+    this.userService.createUser(this.registerForm.value).subscribe(
+      resp => {
+        console.log("Usuario creado");
+        console.log(resp);
+      }, (err) => console.warn(err.err.msg)
+    );
   }
    
   arePasswordsValid(){
-    const pass1 = this.registerForm.get('pass')?.value;
-    const pass2 = this.registerForm.get('passConfirmation')?.value;
+    const password1 = this.registerForm.get('password')?.value;
+    const password2 = this.registerForm.get('passwordConfirmation')?.value;
 
-    if (pass1 !== pass2 && this.formSubmitted) {
+    if (password1 !== password2 && this.formSubmitted) {
       return true;
     } else {
       return false;
     }
   }
 
-  equalPasswords(pass: string, passConfirmation: string) {
+  equalpasswordwords(password: string, passwordConfirmation: string) {
     return (formGroup: FormGroup)  => {
-      const pass1 = formGroup.get(pass);
-      const pass2 = formGroup.get(passConfirmation);
+      const password1 = formGroup.get(password);
+      const password2 = formGroup.get(passwordConfirmation);
 
-      if (pass1?.value !== pass2?.value) {
-        pass2?.setErrors({ notEqual: true});
+      if (password1?.value !== password2?.value) {
+        password2?.setErrors({ notEqual: true});
       } else {
-        pass2?.setErrors(null);
+        password2?.setErrors(null);
       }
       return 
     }
