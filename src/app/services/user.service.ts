@@ -11,7 +11,7 @@ const base_url =`${environment.base_url}/users` ;
 
 
 
-export class Userservice {
+export class UserService {
 
     constructor(private http: HttpClient) {}
 

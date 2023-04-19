@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Userservice } from 'src/app/services/user.service';
+import Swal from 'sweetalert2'
 
+import { UserService } from 'src/app/services/user.service';
+import { AlertService } from 'src/app/services/alerts.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -22,7 +24,7 @@ export class RegisterComponent {
 
   public formSubmitted = false;
 
-  constructor(private fb: FormBuilder, private userService: Userservice) {}
+  constructor(private fb: FormBuilder, private userService: UserService, private alertService: AlertService) {}
 
   validateField(field: string): boolean {
     if (this.registerForm.get(field)?.invalid && this.formSubmitted) {
@@ -44,7 +46,9 @@ export class RegisterComponent {
       resp => {
         console.log("Usuario creado");
         console.log(resp);
-      }, (err) => console.warn(err.err.msg)
+      }, (err) => {
+        this.alertService.showAlert('Error', err.error.msg,  'error');
+      }
     );
   }
    
