@@ -1,27 +1,33 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { RegisterForm } from "../interfaces/registerForm.interface";
-import { environment } from "src/environments/environment";
-import { LoginForm } from "../interfaces/loginForm.interface";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
-const base_url =`${environment.base_url}` ;
+import { environment } from 'src/environments/environment';
+
+import { RegisterForm } from '../interfaces/registerForm.interface';
+import { LoginForm } from '../interfaces/loginForm.interface';
+
+const base_url = `${environment.base_url}`;
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
-
-
 export class UserService {
+  constructor(private http: HttpClient) {}
 
-    constructor(private http: HttpClient) {}
+  createUser(formData: RegisterForm) {
+    return this.http.post(`${base_url}/users/createUser`, formData).pipe(
+      tap((resp: any) => {
+        localStorage.setItem('token', resp.token);
+      })
+    );
+  }
 
-    createUser (formData: RegisterForm) {
-        
-        return this.http.post(`${base_url}/users/createUser`, formData);
-    }
-
-    login(formData: LoginForm){
-        return this.http.post(`${base_url}/login`, formData);
-    }
+  login(formData: LoginForm) {
+    return this.http.post(`${base_url}/login`, formData).pipe(
+      tap((resp: any) => {
+        localStorage.setItem('token', resp.token);
+      })
+    );
+  }
 }
