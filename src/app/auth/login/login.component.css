@@ -41,6 +41,9 @@ Login register and recover password Page
   display: block;
   margin-bottom: 30px;
 }
+#google-btn {
+  padding-left: 90px;
+}
 
 #recoverform {
   display: none;
