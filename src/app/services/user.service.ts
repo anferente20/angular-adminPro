@@ -7,14 +7,16 @@ import { environment } from 'src/environments/environment';
 import { RegisterForm } from '../interfaces/registerForm.interface';
 import { LoginForm } from '../interfaces/loginForm.interface';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 
+declare const google: any;
 const base_url = `${environment.base_url}`;
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   createUser(formData: RegisterForm) {
     return this.http.post(`${base_url}/users/createUser`, formData).pipe(
@@ -55,5 +57,12 @@ export class UserService {
         map((resp) => true),
         catchError((error) => of(false))
       );
+  }
+
+  logout() {
+    google.accounts.id.revoke('andres.renteria@puntored.co', () => {
+      localStorage.removeItem('token');
+      this.router.navigateByUrl('/login');
+    });
   }
 }

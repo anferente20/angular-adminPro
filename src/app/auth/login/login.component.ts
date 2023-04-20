@@ -1,4 +1,10 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  NgZone,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
@@ -24,7 +30,8 @@ export class LoginComponent implements AfterViewInit {
     private router: Router,
     private fb: FormBuilder,
     private userService: UserService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private ngZone: NgZone
   ) {}
 
   ngAfterViewInit(): void {
@@ -40,8 +47,14 @@ export class LoginComponent implements AfterViewInit {
       callback: (response: any) => this.handleCredentialResponse(response),
     });
     google.accounts.id.renderButton(
-      this.googleBtn?.nativeElement,
-      { theme: 'outline', size: 'large' } // customization attributes
+      document.getElementById('googleBtn'),
+      {
+        scope: 'profile email',
+        width: 240,
+        height: 50,
+        longtitle: true,
+        theme: 'dark',
+      } // customization attributes
     );
     google.accounts.id.prompt();
   }
@@ -50,7 +63,9 @@ export class LoginComponent implements AfterViewInit {
     this.userService.googleLogin(response.credential).subscribe(
       (resp) => {
         console.log({ login: resp });
-        this.router.navigateByUrl('/');
+        this.ngZone.run(() => {
+          this.router.navigateByUrl('/');
+        });
       },
       (err) => {
         this.alertService.showAlert('Error', err.error.msg, 'error');
