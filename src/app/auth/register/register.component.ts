@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 
 import { UserService } from 'src/app/services/user.service';
 import { AlertService } from 'src/app/services/alerts.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -26,6 +27,7 @@ export class RegisterComponent {
   public formSubmitted = false;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private userService: UserService,
     private alertService: AlertService
@@ -51,6 +53,7 @@ export class RegisterComponent {
       (resp) => {
         console.log('Usuario creado');
         console.log(resp);
+        this.router.navigateByUrl('/');
       },
       (err) => {
         this.alertService.showAlert('Error', err.error.msg, 'error');
