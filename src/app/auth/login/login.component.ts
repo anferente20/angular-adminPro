@@ -10,7 +10,10 @@ import { AlertService } from 'src/app/services/alerts.service';
 })
 export class LoginComponent {
   public loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: [
+      localStorage.getItem('email') || '',
+      [Validators.required, Validators.email],
+    ],
     password: ['', [Validators.required]],
     rememberMe: [false],
   });
@@ -25,6 +28,9 @@ export class LoginComponent {
   public login() {
     this.userService.login(this.loginForm.value).subscribe(
       (resp) => {
+        if (this.loginForm.get('rememberMe')?.value) {
+          localStorage.setItem('email', this.loginForm.get('email')?.value);
+        }
         console.log('Usuario logueado');
         console.log(resp);
       },
