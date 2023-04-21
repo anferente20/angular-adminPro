@@ -1,14 +1,20 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { filter, interval, map, Observable, retry, Subscription, take } from 'rxjs';
+import {
+  filter,
+  interval,
+  map,
+  Observable,
+  retry,
+  Subscription,
+  take,
+} from 'rxjs';
 
 @Component({
   selector: 'app-rxjs',
   templateUrl: './rxjs.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class RxjsComponent implements OnDestroy {
-
   intervalSubs: Subscription;
   constructor() {
     // this.getObservable().pipe(
@@ -26,27 +32,27 @@ export class RxjsComponent implements OnDestroy {
   }
 
   private getObservable(): Observable<number> {
-     let i = 0;
-     return new Observable<number>( observer => {
-      let intervalo = setInterval( () => {
+    let i = 0;
+    return new Observable<number>((observer) => {
+      let intervalo = setInterval(() => {
         i++;
         observer.next(i);
         if (i === 4) {
           clearInterval(intervalo);
           observer.complete();
         }
-        if (i === 2 ) {
+        if (i === 2) {
           observer.error('panic! :(');
         }
-      }, 1000)
+      }, 1000);
     });
   }
 
   private getObservableI(): Observable<number> {
     return interval(500).pipe(
       //take(10),
-      map( valor =>  valor + 1),
-      filter( valor => valor % 2 === 0? true: false )
+      map((valor) => valor + 1),
+      filter((valor) => (valor % 2 === 0 ? true : false))
     );
   }
 }

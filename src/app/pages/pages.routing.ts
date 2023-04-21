@@ -7,25 +7,42 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './pages.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
-    { 
-        path:'dashboard',
-        component:PagesComponent,
-        children: [
-            { path: '', component: DashboardComponent, data: { title: 'Dashboard'} },
-            { path: 'progress', component: ProgressComponent, data: { title: 'Progress Bar'} },
-            { path: 'graph', component: Graph1Component, data: { title: 'Graph #1'} },
-            { path: 'settings', component: AccountSettingsComponent, data: { title: 'Tools'} },
-            { path: 'promises', component: PromisesComponent, data: { title: 'Promises'} },
-            { path: 'rxjs', component: RxjsComponent, data: { title: 'Rxjs'} },
-        ]
-    },
+  {
+    path: 'dashboard',
+    component: PagesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: DashboardComponent, data: { title: 'Dashboard' } },
+      {
+        path: 'progress',
+        component: ProgressComponent,
+        data: { title: 'Progress Bar' },
+      },
+      {
+        path: 'graph',
+        component: Graph1Component,
+        data: { title: 'Graph #1' },
+      },
+      {
+        path: 'settings',
+        component: AccountSettingsComponent,
+        data: { title: 'Tools' },
+      },
+      {
+        path: 'promises',
+        component: PromisesComponent,
+        data: { title: 'Promises' },
+      },
+      { path: 'rxjs', component: RxjsComponent, data: { title: 'Rxjs' } },
+    ],
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class PagesRoutingModule {}

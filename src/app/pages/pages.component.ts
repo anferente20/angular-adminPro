@@ -5,17 +5,12 @@ declare function customInitFunctions(): void;
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class PagesComponent implements OnInit {
-
-  
-
-  constructor(private settingsService: SettigsService) { }
+  constructor(private settingsService: SettigsService) {}
 
   ngOnInit(): void {
-    customInitFunctions()
+    customInitFunctions();
   }
-
 }

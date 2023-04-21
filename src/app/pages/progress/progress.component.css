@@ -22,7 +22,8 @@ Progress bar
 .progress-bar.active {
   -webkit-animation: progress-bar-stripes 2s linear infinite;
   -o-animation: progress-bar-stripes 2s linear infinite;
-  animation: progress-bar-stripes 2s linear infinite; }
+  animation: progress-bar-stripes 2s linear infinite;
+}
 
 .progress-vertical {
   min-height: 250px;
@@ -30,7 +31,8 @@ Progress bar
   position: relative;
   display: inline-block;
   margin-bottom: 0;
-  margin-right: 20px; }
+  margin-right: 20px;
+}
 
 .progress-vertical-bottom {
   min-height: 250px;
@@ -41,7 +43,8 @@ Progress bar
   margin-right: 20px;
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
-  transform: rotate(180deg); }
+  transform: rotate(180deg);
+}
 
 .progress-animated {
   -webkit-animation-duration: 5s;
@@ -50,12 +53,17 @@ Progress bar
   animation-duration: 5s;
   animation-name: myanimation;
   -o-transition: 5s all;
-  transition: 5s all; }
+  transition: 5s all;
+}
 
 @-webkit-keyframes myanimation {
   from {
-    width: 0; } }
+    width: 0;
+  }
+}
 
 @keyframes myanimation {
   from {
-    width: 0; } }
+    width: 0;
+  }
+}
