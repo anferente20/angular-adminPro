@@ -8,6 +8,7 @@ import { RegisterForm } from '../interfaces/registerForm.interface';
 import { LoginForm } from '../interfaces/loginForm.interface';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
 
 declare const google: any;
 const base_url = `${environment.base_url}`;
@@ -16,6 +17,8 @@ const base_url = `${environment.base_url}`;
   providedIn: 'root',
 })
 export class UserService {
+  public user: User | undefined;
+
   constructor(private http: HttpClient, private router: Router) {}
 
   createUser(formData: RegisterForm) {
@@ -52,6 +55,9 @@ export class UserService {
       })
       .pipe(
         tap((resp: any) => {
+          const { name, email, google, role, uid, image } = resp.user;
+          this.user = new User(name, email, '', role, uid, google, image);
+          console.log(this.user.name);
           localStorage.setItem('token', resp.token);
         }),
         map((resp) => true),
@@ -60,8 +66,10 @@ export class UserService {
   }
 
   logout() {
-    google.accounts.id.revoke('andres.renteria@puntored.co', () => {
-      localStorage.removeItem('token');
+    localStorage.removeItem('token');
+
+    const email = localStorage.getItem('email');
+    google.accounts.id.revoke(email, () => {
       this.router.navigateByUrl('/login');
     });
   }
