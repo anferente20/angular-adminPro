@@ -57,7 +57,7 @@ export class UserService {
       })
       .pipe(
         tap((resp: any) => {
-          const { name, email, google, role, uid, image } = resp.user;
+          const { name, email, google, role, uid, image = '' } = resp.user;
           this.user = new User(name, email, '', role, uid, google, image);
           console.log(this.user.name);
           localStorage.setItem('token', resp.token);
