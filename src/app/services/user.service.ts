@@ -33,6 +33,7 @@ export class UserService {
     return this.http.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
         localStorage.setItem('token', resp.token);
+        localStorage.setItem('emailLogged', resp.email);
       })
     );
   }
@@ -41,6 +42,7 @@ export class UserService {
     return this.http.post(`${base_url}/login/google`, { token: token }).pipe(
       tap((resp: any) => {
         localStorage.setItem('token', resp.token);
+        localStorage.setItem('emailLogged', resp.email);
       })
     );
   }
@@ -68,9 +70,10 @@ export class UserService {
   logout() {
     localStorage.removeItem('token');
 
-    const email = localStorage.getItem('email');
+    const email = localStorage.getItem('emailLogged');
     google.accounts.id.revoke(email, () => {
       this.router.navigateByUrl('/login');
     });
+    this.router.navigateByUrl('/login');
   }
 }

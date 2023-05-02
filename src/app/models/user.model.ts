@@ -1,3 +1,6 @@
+import { environment } from 'src/environments/environment';
+
+const base_url = environment.base_url;
 export class User {
   constructor(
     public name: string,
@@ -8,4 +11,14 @@ export class User {
     public googleToken?: boolean,
     public image?: string
   ) {}
+
+  get getImage() {
+    if (this.image?.includes('https')) {
+      return this.image;
+    }
+    if (this.image) {
+      return `${base_url}/upload/users/${this.image}`;
+    }
+    return `${base_url}/upload/users/no-image`;
+  }
 }
