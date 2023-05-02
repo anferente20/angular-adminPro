@@ -8,6 +8,7 @@ import { PagesComponent } from './pages.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from '../guards/auth.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
         path: 'progress',
         component: ProgressComponent,
         data: { title: 'Progress Bar' },
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        data: { title: 'User profile' },
       },
       {
         path: 'graph',
